@@ -32,28 +32,62 @@ var connector = new builder.ChatConnector({
 var bot = new builder.UniversalBot(connector)
 server.post('/api/messages', connector.listen())
 
-// // Setup LUIS connection
-// var model = 'https://api.projectoxford.ai/luis/v1/application?id=' + process.env.LUIS_ID + '&subscription-key=' + process.env.LUIS_KEY + '&verbose=true'
-// var recognizer = new builder.LuisRecognizer(model)
-// var dialog = new builder.IntentDialog({recognizers: [recognizer]})
-// bot.dialog('/', dialog)
+// Setup LUIS connection
+var model = 'https://api.projectoxford.ai/luis/v1/application?id=' + process.env.LUIS_ID + '&subscription-key=' + process.env.LUIS_KEY + '&verbose=true'
+var recognizer = new builder.LuisRecognizer(model)
+var dialog = new builder.IntentDialog({recognizers: [recognizer]})
+bot.dialog('/', dialog)
 
 // =========================================================
 // LUIS Dialogs
 // =========================================================
 
-// dialog.matches('Greeting', [
-//   function (session, results) {
-//     session.send('Hello! I am your friendly HR bot. What can I help you with today?')
-//   }
-// ])
+dialog.matches('Greeting', [
+  function (session, results) {
+    session.send('Hello! I am your friendly HR bot. What can I help you with today?')
+  }
+])
 
-// dialog.onDefault([
-//   function (session, results) {
-//     session.send('Sorry.. I did\'t understand that. Let me show you what I can do.')
-//     session.beginDialog('/mainMenu', results)
-//   }
-// ])
+dialog.matches('getSickTime', [
+  function (session, results) {
+    session.send("I hope you're feeling okay.")
+    session.beginDialog('/viewSickTime')
+  }
+])
+
+dialog.matches('getVacationTime', [
+  function (session, results) {
+    session.send('A vacation sounds great!')
+    session.beginDialog('/viewVacationTime')
+  }
+])
+
+dialog.matches('getUpcomingBirthdays', [
+  function (session, results) {
+    session.send('Checking birthdays..')
+    session.beginDialog('/viewUpcomingBirthdays')
+  }
+])
+
+dialog.matches('getAnniversaries', [
+  function (session, results) {
+    session.send('Checking anniversaries..')
+    session.beginDialog('/viewAnniversary', results)
+  }
+])
+
+dialog.matches('Farewell', [
+  function (session, results) {
+    session.send('Glad I could help! Have a great day!')
+  }
+])
+
+dialog.onDefault([
+  function (session, results) {
+    session.send('Sorry.. I did\'t understand that. Let me show you what I can do.')
+    session.beginDialog('/mainMenu', results)
+  }
+])
 
 // =========================================================
 // Bots Dialogs
@@ -65,8 +99,7 @@ viewUpcomingBirthdaysDialog(bot)
 viewAnniversary(bot)
 
 // present the user with a main menu of choices they can select from
-// bot.dialog('/mainMenu', [
-bot.dialog('/', [
+bot.dialog('/mainMenu', [
   function (session, results) {
     var style = builder.ListStyle['button']
     builder.Prompts.choice(session, 'I can do any of these, pick one!', ['Show sick time', 'Show vacation time', 'View upcoming birthdays', 'View employee anniversary'], { listStyle: style })
