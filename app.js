@@ -68,7 +68,7 @@ viewAnniversary(bot)
 // bot.dialog('/mainMenu', [
 bot.dialog('/', [
   function (session, results) {
-    builder.Prompts.choice(session, 'I can do any of these, pick one!', ['Show sick time', 'Show vacation time', 'View upcoming birthdays', 'View employee anniversary'])
+    builder.Prompts.choice(session, 'I can do any of these, pick one!', ['Show sick time', 'Show vacation time', 'View upcoming birthdays', 'View employee anniversary'], { listStyle: 'button' })
   },
   function (session, results) {
     switch (results.response.index) {
