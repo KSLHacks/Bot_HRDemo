@@ -84,7 +84,7 @@ dialog.matches('Farewell', [
 
 dialog.onDefault([
   function (session, results) {
-    session.send('Sorry.. I did\'t understand that. Let me show you what I can do.')
+    session.send('Let me show you what I can do!')
     session.beginDialog('/mainMenu', results)
   }
 ])
