@@ -5,8 +5,6 @@ module.exports = function (bot) {
     function (session, args, next) {
       if (typeof args !== 'undefined' && args.entities) {
         var employee = builder.EntityRecognizer.findEntity(args.entities, 'employee')
-        console.log('args.entities', args.entities)
-        console.log('employee', employee)
         if (!employee) {
           builder.Prompts.choice(session, 'Select an employee', ['Kevin Leung', 'Chih-Wei Tsai', 'Jane Doe', 'John Doe'], { listStyle: builder.ListStyle['button'] })
         } else {

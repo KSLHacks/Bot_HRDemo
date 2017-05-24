@@ -6,6 +6,7 @@ const builder = require('botbuilder')
 // Require dialogs
 const viewSickTimeDialog = require('./app/dialogs/viewSickTime')
 const viewVacationTimeDialog = require('./app/dialogs/viewVacationTime')
+const useVacationTimeDialog = require('./app/dialogs/useVacationTime')
 const viewUpcomingBirthdaysDialog = require('./app/dialogs/viewUpcomingBirthdays')
 const viewAnniversary = require('./app/dialogs/viewAnniversary')
 
@@ -41,6 +42,11 @@ bot.dialog('/', dialog)
 // =========================================================
 // LUIS Dialogs
 // =========================================================
+viewSickTimeDialog(bot, sickTime)
+viewVacationTimeDialog(bot, vacationTime)
+useVacationTimeDialog(bot, vacationTime)
+viewUpcomingBirthdaysDialog(bot)
+viewAnniversary(bot)
 
 dialog.matches('Greeting', [
   function (session, results) {
@@ -59,6 +65,13 @@ dialog.matches('getVacationTime', [
   function (session, results) {
     session.send('A vacation sounds great!')
     session.beginDialog('/viewVacationTime')
+    session.send('You should probably take some time off.. :)')
+  }
+])
+
+dialog.matches('useVacationTime', [
+  function (session, results) {
+    session.beginDialog('/useVacationTime', results)
   }
 ])
 
@@ -92,11 +105,6 @@ dialog.onDefault([
 // =========================================================
 // Bots Dialogs
 // =========================================================
-
-viewSickTimeDialog(bot, sickTime)
-viewVacationTimeDialog(bot, vacationTime)
-viewUpcomingBirthdaysDialog(bot)
-viewAnniversary(bot)
 
 // present the user with a main menu of choices they can select from
 bot.dialog('/mainMenu', [
