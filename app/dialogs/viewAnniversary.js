@@ -3,7 +3,8 @@ const builder = require('botbuilder')
 module.exports = function (bot) {
   bot.dialog('/viewAnniversary', [
     function (session, args, next) {
-      builder.Prompts.choice(session, 'Select an employee', ['Kevin Leung', 'Chih-Wei Tsai', 'Jane Doe', 'John Doe'])
+      var style = builder.ListStyle['button']
+      builder.Prompts.choice(session, 'Select an employee', ['Kevin Leung', 'Chih-Wei Tsai', 'Jane Doe', 'John Doe'], { listStyle: style })
     },
     function (session, results) {
       switch (results.response.index) {
