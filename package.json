@@ -1,0 +1,25 @@
+{
+  "name": "Bot_HRDemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KSLHacks/Bot_HRDemo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KSLHacks/Bot_HRDemo/issues"
+  },
+  "homepage": "https://github.com/KSLHacks/Bot_HRDemo#readme",
+  "dependencies": {
+    "botbuilder": "^3.8.3",
+    "dotenv": "^4.0.0",
+    "restify": "^4.3.0"
+  }
+}
